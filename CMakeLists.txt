@@ -35,7 +35,6 @@ add_library(${PROJECT_NAME} STATIC
 target_include_directories(${PROJECT_NAME}
   PUBLIC
     $<INSTALL_INTERFACE:include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> 
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/audio> 
     ${SDL2_INCLUDE_DIRS}
 )
