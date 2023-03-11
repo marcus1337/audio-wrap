@@ -65,9 +65,9 @@ bool Audio::isMuted() {
     return audio.isMuted();
 }
 
-void Audio::loadSounds(std::vector<std::string> soundFilePaths, std::vector<std::string> soundNames) {
+void Audio::loadSounds(std::vector<std::string> wavFolderPaths) {
     if (!audio.isInitialized())
         return;
-    audio.loadSounds(soundFilePaths, soundNames);
+    audio.loadSounds(wavFolderPaths);
 }
 

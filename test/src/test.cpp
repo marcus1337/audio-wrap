@@ -20,13 +20,11 @@ int main(int argc, char* argv[]) {
 
     Audio audio;
     auto soundFolders = getResourceFolderPaths();
-    auto fxFolder = soundFolders[0];
-    auto musicFolder = soundFolders[1];
-    std::string pianoWavPath = musicFolder + "sample.wav";
-
+    //auto fxFolder = soundFolders[0];
+    //auto musicFolder = soundFolders[1];
     audio.unmuteSound();
-    audio.loadSounds({ pianoWavPath }, { "piano" });
-    audio.playMusic("piano");
+    audio.loadSounds( soundFolders );
+    audio.playMusic("sample");
 
     while (true) {
         std::this_thread::sleep_for(std::chrono::milliseconds(10));

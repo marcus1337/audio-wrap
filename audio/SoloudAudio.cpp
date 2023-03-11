@@ -1,7 +1,7 @@
 #include "SoloudAudio.h"
 #include <iostream>
-
 #include <SDL2/SDL.h>
+#include <filesystem>
 
 SoloudAudio::SoloudAudio() {
 }
@@ -53,16 +53,26 @@ void SoloudAudio::queueEffect(std::string effectName, int maxQueueSize) {
     }
 }
 
-void SoloudAudio::loadSounds(std::vector<std::string> soundFilePaths, std::vector<std::string> soundNames) {
-    for (int i = 0; i < soundNames.size(); i++) {
-        std::string soundName = soundNames[i];
-        std::string soundFilePath = soundFilePaths[i];
-
-        if (!soundMap.contains(soundName)) {
-            SoLoud::Wav* wav = new SoLoud::Wav();
-            wav->load(soundFilePath.c_str());
-            soundMap[soundName] = wav;
+void SoloudAudio::loadSounds(std::vector<std::string> wavFolderPaths) {
+    for (const auto& folderPath : wavFolderPaths) {
+        std::filesystem::path folder(folderPath);
+        if (std::filesystem::exists(folder) && std::filesystem::is_directory(folder)) {
+            for (const auto& entry : std::filesystem::directory_iterator(folder)) {
+                if (entry.is_regular_file() && entry.path().extension() == ".wav") {
+                    std::string soundName = entry.path().stem().string();
+                    std::string soundFilePath = entry.path().string();
+                    loadSound(soundFilePath, soundName);
+                }
+            }
         }
+    }
+}
+
+void SoloudAudio::loadSound(std::string path, std::string name) {
+    if (!soundMap.contains(name)) {
+        SoLoud::Wav* wav = new SoLoud::Wav();
+        wav->load(path.c_str());
+        soundMap[name] = wav;
     }
 }
 

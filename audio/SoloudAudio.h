@@ -24,10 +24,12 @@ class SoloudAudio {
     SoLoud::Queue effectQueue;
     std::map<std::string, SoLoud::Wav*> soundMap;
 
+    void loadSound(std::string path, std::string name);
+
 public:
 
     void init();
-    void loadSounds(std::vector<std::string> soundFilePaths, std::vector<std::string> soundNames);
+    void loadSounds(std::vector<std::string> wavFolderPaths);
 
     SoloudAudio();
     ~SoloudAudio();

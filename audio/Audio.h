@@ -28,7 +28,7 @@ public:
     void unmuteSound();
     bool isMuted();
 
-    void loadSounds(std::vector<std::string> soundFilePaths, std::vector<std::string> soundNames);
+    void loadSounds(std::vector<std::string> wavFolderPaths);
 
 };
 
