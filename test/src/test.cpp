@@ -27,6 +27,10 @@ void testAudio(Audio& audio) {
     audio.loadSounds(getResourceFolderPaths());
     audio.unmuteSound();
     audio.playMusic("sample");
+
+   // auto randomName = audio.getRandomSoundName("m");
+   // std::cout << "random name: " << randomName << "\n";
+
     pause();
 }
 
@@ -36,7 +40,7 @@ void test1() {
 }
 
 void test2() {
-    auto audio = AudioSingleton::getInstance();
+    auto& audio = AudioSingleton::getInstance();
     testAudio(audio);
 }
 

@@ -1,9 +1,11 @@
 #include "Audio.h"
 #include <iostream>
+#include <string>
 
-Audio::Audio() {
+Audio::Audio() : randNumGenerator(randDev()) {
 
 }
+
 Audio::~Audio() {
 
 }
@@ -75,6 +77,25 @@ void Audio::loadSounds(std::vector<std::string> wavFolderPaths) {
     else {
         audio.loadSounds(wavFolderPaths);
     }
+}
+
+std::vector<std::string> Audio::getSoundNames(std::string nameSubStr) {
+    std::vector<std::string> names;
+    for (const auto& str : audio.getSoundNames()) {
+        if (str.find(nameSubStr) != std::string::npos) {
+            names.push_back(str);
+        }
+    }
+    return names;
+}
+
+std::string Audio::getRandomSoundName(std::string nameSubStr) {
+    auto names = getSoundNames(nameSubStr);
+    if (names.empty())
+        return "";
+    std::uniform_int_distribution<std::mt19937::result_type> distribution(0, names.size()-1);
+    std::size_t randIndex = distribution(randNumGenerator);
+    return names[randIndex];
 }
 
 

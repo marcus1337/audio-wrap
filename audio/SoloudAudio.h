@@ -46,6 +46,8 @@ public:
     void muteSound();
     void unmuteSound();
     bool isMuted();
+
+    std::vector<std::string> getSoundNames();
 };
 
 #endif

@@ -122,3 +122,12 @@ bool SoloudAudio::isMuted() {
 bool SoloudAudio::isInitialized() {
     return initialized;
 }
+
+std::vector<std::string> SoloudAudio::getSoundNames() {
+    std::vector<std::string> names;
+    for (const auto& [key, value] : soundMap) {
+        names.push_back(key);
+    }
+    return names;
+}
+
