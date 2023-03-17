@@ -7,6 +7,7 @@
 
 #include <chrono>
 #include <thread>
+#include "AudioSingleton.h"
 
 std::vector<std::string> getResourceFolderPaths() {
     std::vector<std::string> paths;
@@ -16,18 +17,33 @@ std::vector<std::string> getResourceFolderPaths() {
     return paths;
 }
 
-int main(int argc, char* argv[]) {
-
-    Audio audio;
-    auto soundFolders = getResourceFolderPaths();
-    audio.loadSounds(soundFolders);
-    audio.unmuteSound();
-    audio.playMusic("sample");
-
+void pause() {
     while (true) {
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
-    
+}
+
+void testAudio(Audio& audio) {
+    audio.loadSounds(getResourceFolderPaths());
+    audio.unmuteSound();
+    audio.playMusic("sample");
+    pause();
+}
+
+void test1() {
+    Audio audio;
+    testAudio(audio);
+}
+
+void test2() {
+    auto audio = AudioSingleton::getInstance();
+    testAudio(audio);
+}
+
+int main(int argc, char* argv[]) {
+
+    test2();    
 
     return 0;
 }
+
