@@ -20,8 +20,8 @@ int main(int argc, char* argv[]) {
 
     Audio audio;
     auto soundFolders = getResourceFolderPaths();
+    audio.loadSounds(soundFolders);
     audio.unmuteSound();
-    audio.loadSounds( soundFolders );
     audio.playMusic("sample");
 
     while (true) {

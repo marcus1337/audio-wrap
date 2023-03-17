@@ -30,7 +30,7 @@ file(GLOB soloud_SRC
 
 add_library(${PROJECT_NAME} STATIC 
 "audio/Audio.h" "audio/Audio.cpp" ${soloud_SRC} "audio/SoloudAudio.h" "audio/SoloudAudio.cpp"
-)
+ "audio/WavPath.h" "audio/WavPath.cpp")
 
 target_include_directories(${PROJECT_NAME}
   PUBLIC

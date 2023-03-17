@@ -10,6 +10,7 @@
 class Audio {
 
     SoloudAudio audio;
+    std::vector<std::string> unloadedWavFolderPaths;
 
 public:
     Audio();

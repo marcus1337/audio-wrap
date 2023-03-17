@@ -2,6 +2,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <filesystem>
+#include "WavPath.h"
 
 SoloudAudio::SoloudAudio() {
 }
@@ -48,23 +49,16 @@ void SoloudAudio::queueEffect(std::string effectName, int maxQueueSize) {
     if (effectQueue.getQueueCount() < maxQueueSize) {
         effectBus.play(effectQueue);
         auto wavPtr = getWavPointer(effectName);
-        if(wavPtr != nullptr)
+        if (wavPtr != nullptr)
             effectQueue.play(*wavPtr);
     }
 }
 
 void SoloudAudio::loadSounds(std::vector<std::string> wavFolderPaths) {
-    for (const auto& folderPath : wavFolderPaths) {
-        std::filesystem::path folder(folderPath);
-        if (std::filesystem::exists(folder) && std::filesystem::is_directory(folder)) {
-            for (const auto& entry : std::filesystem::directory_iterator(folder)) {
-                if (entry.is_regular_file() && entry.path().extension() == ".wav") {
-                    std::string soundName = entry.path().stem().string();
-                    std::string soundFilePath = entry.path().string();
-                    loadSound(soundFilePath, soundName);
-                }
-            }
-        }
+    for (const auto& namePathPair : WavPath(wavFolderPaths).getWavNamePathPairs()) {
+        std::string soundName = namePathPair.first;
+        std::string soundFilePath = namePathPair.second;
+        loadSound(soundFilePath, soundName);
     }
 }
 
@@ -78,7 +72,7 @@ void SoloudAudio::loadSound(std::string path, std::string name) {
 
 void SoloudAudio::playMusic(std::string musicName) {
     auto wavPtr = getWavPointer(musicName);
-    if(wavPtr != nullptr)
+    if (wavPtr != nullptr)
         musicBus.play(*wavPtr);
 }
 

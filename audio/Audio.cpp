@@ -54,8 +54,11 @@ void Audio::muteSound() {
     audio.muteSound();
 }
 void Audio::unmuteSound() {
-    if (!audio.isInitialized())
+    if (!audio.isInitialized()) {
         audio.init();
+        loadSounds(unloadedWavFolderPaths);
+        unloadedWavFolderPaths.clear();
+    }
     if (audio.isMuted())
         audio.unmuteSound();
 }
@@ -66,8 +69,12 @@ bool Audio::isMuted() {
 }
 
 void Audio::loadSounds(std::vector<std::string> wavFolderPaths) {
-    if (!audio.isInitialized())
-        return;
-    audio.loadSounds(wavFolderPaths);
+    if (!audio.isInitialized()) {
+        unloadedWavFolderPaths = wavFolderPaths;
+    }
+    else {
+        audio.loadSounds(wavFolderPaths);
+    }
 }
+
 
